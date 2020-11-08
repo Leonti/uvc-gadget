@@ -37,6 +37,7 @@
 #include <linux/videodev2.h>
 
 #include "uvc.h"
+#include "gpio.h"
 
 
 #define WIDTH1  640
@@ -641,7 +642,7 @@ static int v4l2_start_capturing(struct v4l2_device *dev)
     }
 
     printf("V4L2: Starting video stream.\n");
-
+    digitalWrite("21", HIGH);
     return 0;
 }
 
@@ -665,6 +666,8 @@ static int v4l2_stop_capturing(struct v4l2_device *dev)
         /* Nothing to do. */
         break;
     }
+
+    digitalWrite("21", LOW);
 
     return 0;
 }
@@ -2198,6 +2201,8 @@ int main(int argc, char *argv[])
         if (vdev == NULL || ret < 0)
             return 1;
     }
+
+    pinMode("21", OUTPUT);
 
     /* Open the UVC device. */
     ret = uvc_open(&udev, uvc_devname);
