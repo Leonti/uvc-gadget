@@ -2,10 +2,6 @@
 #include <string.h>
 #include <unistd.h>
 
-//#define OUTPUT "out"
-//#define LOW "0"
-//#define HIGH "1"
-
 void pinMode(char pin[], char mode[]) {
 	FILE *sysfs_export;
 	FILE *sysfs_direction;
@@ -34,23 +30,3 @@ void digitalWrite(char pin[], char value[]) {
 	fwrite(value, 1, sizeof(value), sysfs_value);
 	fclose(sysfs_value);	
 }
-
-void cleanUp(char pin[]) {
-	FILE *sysfs_unexport;
-	sysfs_unexport = fopen("/sys/class/gpio/unexport", "w");
-	fwrite(pin, 1, sizeof(pin), sysfs_unexport);
-	fclose(sysfs_unexport);
-}
-
-/*
-int main() {
-	pinMode("21", OUTPUT);		
-	
-	digitalWrite("21", HIGH);
-	sleep(5);
-	digitalWrite("21", LOW);	
-
-	cleanUp("21");
-	return 0;
-}
-*/

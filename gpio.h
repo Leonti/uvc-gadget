@@ -4,4 +4,3 @@
 
 void pinMode(char pin[], char mode[]);
 void digitalWrite(char pin[], char value[]);
-void cleanUp(char pin[]);
